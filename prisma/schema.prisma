@@ -1,0 +1,20 @@
+// Define the data source for Prisma
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Define Prisma Client generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId  // MongoDB-specific ID field (ObjectId)
+  telegramId      String    @unique                           // Telegram ID (used for login)
+  username        String?                                    // Optional Telegram username
+  firstName       String?                                    // First name from Telegram
+  lastName        String?                                    // Last name from Telegram
+  createdAt       DateTime  @default(now())                  // Timestamp for when the user was created
+}
+
