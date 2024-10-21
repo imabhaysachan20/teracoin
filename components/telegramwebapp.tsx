@@ -39,13 +39,13 @@ function Telegramwebapp() {
 
           if (user) {
             setUser(userData);
-           
+            login(userData);
           } else {
             
             setIsTele(false);
           }
         } catch (error) {
-          
+          alert(error)
           setIsTele(false);
         }
       } else {
