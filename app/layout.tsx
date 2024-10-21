@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto} from 'next/font/google'
 import "./globals.css";
 import { ThemeProvider } from "./theme-provider";
-import { ModeToggle } from "./components/toggle-btn";
+import { ModeToggle } from "../components/toggle-btn";
 
 
 

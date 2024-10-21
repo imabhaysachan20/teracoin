@@ -1,15 +1,11 @@
-import Image from "next/image";
-import logo from "@/public/images/logo.png"
-import User from "./components/user-info"
+import TelegramWebApp from '../components/telegramwebapp';
 
-
-export default function Home() {
-  
+const Home = () => {
   return (
-    <main className="flex items-center justify-center h-screen dark:bg-black">
-    <Image width={100}  alt="logo" src={logo}></Image>
-    <User/>
-  
-    </main>
+    <div>
+      <TelegramWebApp />
+    </div>
   );
-}
+};
+
+export default Home;
