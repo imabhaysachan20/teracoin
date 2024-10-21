@@ -20,9 +20,9 @@ function Telegramwebapp() {
           const userData = JSON.parse(decodedData);
           const userId = userData.user_id;
           setId(userId);
-          console.log("User ID:", userId);
+          alert(userId)
         } catch (error) {
-          console.error("Failed to parse user data:", error);
+          alert("error")
           setIsTele(false);
         }
       } else {
