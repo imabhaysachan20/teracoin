@@ -6,6 +6,7 @@ import { ModeToggle } from "./components/toggle-btn";
 
 
 
+
 const roboto = Roboto({
   weight:["100","300","400",'500','900'],
   subsets:['latin']
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
      
     <html lang="en" suppressHydrationWarning>
-  
+      <head>
+
+  </head>
       <body
         className={`${roboto.className} antialiased`}
       >
