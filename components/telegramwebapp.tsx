@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import WebAppError from "./error/WebAppError";
 
 
-function telegramwebapp() {
+function Telegramwebapp() {
   const [isTele,setisTele] = useState<boolean>(false);
   const [id,setId] = useState<string|null>(null)
   useEffect(() => {
@@ -39,4 +39,4 @@ function telegramwebapp() {
   )
 }
 
-export default telegramwebapp
+export default Telegramwebapp
