@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "./theme-provider";
 import { ModeToggle } from "../components/toggle-btn";
 
-<script src = "https://telegram.org/js/telegram-web-app.js" defer></script>
 
 
 const roboto = Roboto({

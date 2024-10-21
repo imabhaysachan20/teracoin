@@ -1,4 +1,5 @@
 "use client"
+import Script from 'next/script'
 import { useEffect, useState } from 'react';
 
 const TelegramWebApp = () => {
@@ -29,7 +30,8 @@ const TelegramWebApp = () => {
     }
   };
 
-  return (
+  return (<>
+    <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
     <div>
       <h1>Welcome, {username}</h1>
       {isTelegram ? (
@@ -38,6 +40,7 @@ const TelegramWebApp = () => {
         <p>This app is only available inside Telegram WebApp</p>
       )}
     </div>
+</>
   );
 };
 
