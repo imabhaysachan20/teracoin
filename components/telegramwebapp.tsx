@@ -3,40 +3,43 @@
 import Script from "next/script"
 import { useEffect, useState } from "react"
 import WebAppError from "./error/WebAppError";
-
-
+import Loading from "./loading";
 function Telegramwebapp() {
-  const [isTele,setisTele] = useState<boolean>(false);
-  const [id,setId] = useState<string|null>(null)
+  const [isTele, setIsTele] = useState<boolean>(false);
+  const [id, setId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     if (typeof Telegram !== "undefined" && Telegram.WebApp) {
-
       const initData = Telegram.WebApp.initData;
 
       if (initData) {
-        setisTele(true);
-        const decodedData = decodeURIComponent(initData);
-        const userData = JSON.parse(decodedData);
-        const id = userData.user_id;
-        setId(id);
-
-        console.log("User ID:", id);
+        setIsTele(true);
+        try {
+          const decodedData = decodeURIComponent(initData);
+          const userData = JSON.parse(decodedData);
+          const userId = userData.user_id;
+          setId(userId);
+          console.log("User ID:", userId);
+        } catch (error) {
+          console.error("Failed to parse user data:", error);
+          setIsTele(false);
+        }
       } else {
-        setisTele(false);
+        setIsTele(false);
       }
     }
+    setLoading(false);
   }, []);
-    
-  return (<>
-    <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
-    {isTele && <div>
-      Welcome {id}!
-      </div>}
 
-      {!isTele && <WebAppError/>}
-    
+  return (
+    <>
+      <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
+      {loading &&<Loading></Loading> }
+      {!loading && isTele && <div>Welcome {id}!</div>}
+      {!loading && !isTele && <WebAppError />}
     </>
-  )
+  );
 }
 
-export default Telegramwebapp
+export default Telegramwebapp;
