@@ -22,7 +22,7 @@ function Telegramwebapp() {
           setId(userId);
           alert(userId)
         } catch (error) {
-          alert("error")
+          alert(error)
           setIsTele(false);
         }
       } else {
