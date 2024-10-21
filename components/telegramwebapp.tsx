@@ -1,47 +1,42 @@
 "use client"
-import Script from 'next/script'
-import { useEffect, useState } from 'react';
 
-const TelegramWebApp = () => {
-  const [isTelegram, setIsTelegram] = useState(false);
-  const [username, setUsername] = useState<string | null>(null);
+import Script from "next/script"
+import { useEffect, useState } from "react"
+import WebAppError from "./error/WebAppError";
 
+
+function telegramwebapp() {
+  const [isTele,setisTele] = useState<boolean>(false);
+  const [id,setId] = useState<string|null>(null)
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      setIsTelegram(true);
+    if (typeof Telegram !== "undefined" && Telegram.WebApp) {
 
-      // Access user info
-      setUsername(tg.initDataUnsafe?.user?.username || 'Guest');
+      const initData = Telegram.WebApp.initData;
 
-      // Setup the main button
-      tg.MainButton.setText('Click me');
-      tg.MainButton.show();
-    } else {
-      console.log('Telegram SDK not available');
+      if (initData) {
+        setisTele(true);
+        const decodedData = decodeURIComponent(initData);
+        const userData = JSON.parse(decodedData);
+        const id = userData.user_id;
+        setId(id);
+
+        console.log("User ID:", id);
+      } else {
+        setisTele(false);
+      }
     }
   }, []);
-
-  const onButtonClick = () => {
-    if (isTelegram && window.Telegram) {
-      const tg = window.Telegram.WebApp;
-      tg.MainButton.setText('Clicked');
-    }
-  };
-
+    
   return (<>
-    <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
-    <div>
-      <h1>Welcome, {username}</h1>
-      {isTelegram ? (
-        <button onClick={onButtonClick}>Click the Telegram Button</button>
-      ) : (
-        <p>This app is only available inside Telegram WebApp</p>
-      )}
-    </div>
-</>
-  );
-};
+    <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
+    {isTele && <div>
+      Welcome {id}!
+      </div>}
 
-export default TelegramWebApp;
+      {!isTele && <WebAppError/>}
+    
+    </>
+  )
+}
+
+export default telegramwebapp
