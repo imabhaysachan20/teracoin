@@ -84,7 +84,7 @@ function Telegramwebapp() {
     <>
       <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
       {loading && <Loading></Loading>}
-      {!loading && isTele && <div>Welcome {user.id}!</div>}
+      {!loading && isTele && <div>Welcome {JSON.parse(user.user).id}!</div>}
       {!loading && !isTele && <WebAppError err_txt="TERACOIN NOT AVAILABLE OUTSIDE TELEGRAM" />}  
     </>
   );
