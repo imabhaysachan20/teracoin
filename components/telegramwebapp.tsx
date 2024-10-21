@@ -20,12 +20,13 @@ function Telegramwebapp() {
           const decodedData = decodeURIComponent(initData);
           alert("Decoded Data: " + decodedData);
 
-          // If it's a query string, parse it
+          // Parse the query string
           const userData = parseQueryString(decodedData);
-          const userId = userData.user_id;
+          const user = JSON.parse(userData.user); // Parse the user JSON
+          const userId = user.id; // Extract user ID
 
           if (userId) {
-            setId(userId);
+            setId(userId.toString());
             alert("User ID: " + userId);
           } else {
             alert("User ID not found in initData");
@@ -56,7 +57,7 @@ function Telegramwebapp() {
   return (
     <>
       <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
-      {loading && <Loading/>}
+      {loading && <Loading></Loading>}
       {!loading && isTele && <div>Welcome {id}!</div>}
       {!loading && !isTele && <WebAppError />}
     </>
