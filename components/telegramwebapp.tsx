@@ -1,18 +1,35 @@
+interface TelegramWebApp {
+  initDataUnsafe: {
+    user?: {
+      id: number;
+      first_name: string;
+      last_name?: string;
+      username?: string;
+    };
+  };
+  MainButton: {
+    setText: (text: string) => void;
+    show: () => void;
+    hide: () => void;
+  };
+  ready: () => void;
+}
+
+interface Window {
+  Telegram?: {
+    WebApp: TelegramWebApp;
+  };
+}
+
 "use client"
 import { useEffect, useState } from 'react';
-
-declare global {
-  interface Window {
-    Telegram?: any;
-  }
-}
 
 const TelegramWebApp = () => {
   const [isTelegram, setIsTelegram] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.Telegram) {
+    if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.ready();
       setIsTelegram(true);
